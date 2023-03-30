@@ -1,19 +1,22 @@
 import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema({
-    displayName: String,
-    email: String,
-    password: String,
+    displayName: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
     pp: String,
-    friends: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'users'
-        }
-    ],
-    user: {
-        type: Object
-    }
+    chats: [],
 });
 
 const UsersModel = mongoose.model('users', userSchema);

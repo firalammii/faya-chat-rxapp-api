@@ -17,6 +17,7 @@ export const createUser = async(req, res) => {
     console.log('creating ......')
     try {
         const user = new UsersModel(req.body);
+        console.log(user)
         const saved = await user.save();
         res.status(201).json(saved)
     } catch (error) {
