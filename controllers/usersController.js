@@ -2,7 +2,7 @@
 import UsersModel from '../models/usersModel.js'
 
 
-export const getUsers = async(req, res) => {
+export const fetchUsers = async (req, res) => {
     console.log('fetching ...')
     try {
         const users = await UsersModel.find({}).populate('chats');
@@ -17,7 +17,6 @@ export const createUser = async(req, res) => {
     console.log('creating ......')
     try {
         const user = new UsersModel(req.body);
-        console.log(user)
         const saved = await user.save();
         res.status(201).json(saved)
     } catch (error) {
@@ -29,11 +28,8 @@ export const updateUser = async (req, res) => {
     console.log('updating ......');
     try {
         const { id } = req.params;
-        const { body } = req.body;
-        // const user = await UsersModel.findById(id);
-        // const chats =  user.chats;
-
-        const updated = await UsersModel.findByIdAndUpdate(id, body, { new: true });
+        const updated = await UsersModel.fi(id, req.body, { new: true });
+        console.log(updated)
         res.status(201).json(updated);
     } catch (error) {
         console.log(error);

@@ -31,8 +31,9 @@ const PORT = process.env.PORT || 3000;
 //     .then(() => app.listen(PORT, () => console.log(`succesfull connection to db PORT ${PORT} ....`)))
 //     .catch(err => console.log(err + '\nunable to connect'));
 
+// mongodb + srv://admin:<password>@<yourClouster>/myFirstDatabase?retryWrites=true&w=majority
 
-mongoose.connect(process.env.DB_CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.DB_CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true, writeConcern: { w: 'majority', j: true, wtimeout: 1000 } })
     .then(() => app.listen(PORT, () => console.log(`succesfull connection to db, server is on PORT ${PORT} ....`)))
     .catch(err => console.log(err + '\nunable to connect'));
 

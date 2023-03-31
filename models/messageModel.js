@@ -6,12 +6,6 @@ const messageSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
     },
-    users: [ //participants  2 or more persons chating
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'users',
-        }
-    ],
     attachments: [],
     createdOn: {
         type: Date,
