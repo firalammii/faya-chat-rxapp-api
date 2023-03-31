@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 /* ************************************************************* */
 import usersRoute from './routes/usersRoute.js';
+import messagesRoute from './routes/messagesRoute.js';
+import chatsRoute from './routes/chatsRoute.js';
 
 const app = express();
 dotenv.config();
@@ -19,6 +21,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', usersRoute);
+app.use('/messages', messagesRoute);
+app.use('/chats', chatsRoute);
 
 const PORT = process.env.PORT || 3000;
 
