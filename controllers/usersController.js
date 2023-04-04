@@ -5,7 +5,7 @@ import UsersModel from '../models/usersModel.js'
 export const fetchUsers = async (req, res) => {
     console.log('fetching ...')
     try {
-        const users = await UsersModel.find({}).populate('chats');
+        const users = await UsersModel.find({});
         res.status(200).json(users)
     } catch (error) {
         console.log(error)
@@ -25,15 +25,38 @@ export const createUser = async(req, res) => {
 }
 //
 export const updateUser = async (req, res) => {
+
     console.log('updating ......');
+    const { id } = req.params;
+    const { userObj } = req.body;
+    console.log(userObj);
     try {
-        const { id } = req.params;
-        const updated = await UsersModel.fi(id, req.body, { new: true });
+        const user = await UsersModel.findById(id);
+        // console.log(user)
+        await user.chats.push(req.body.userObj);
+        console.log(user);
+        const updated = await user.save()
         console.log(updated)
-        res.status(201).json(updated);
+
     } catch (error) {
-        console.log(error);
+        console.log(error)
     }
+
+        // if (error) res.json(error);
+        // else {
+        //     user.chats.push(req.body.userObj);
+        //     user.save((err, user) => {
+        //         if (err) res.json(err);
+        //         else res.status(201).json(user);
+        //     });
+        // }
+    // try {
+    //     const updated = await UsersModel.fi(id, req.body, { new: true });
+    //     console.log(updated)
+    //     res.status(201).json(updated);
+    // } catch (error) {
+    //     console.log(error);
+    // }
 };
 
 export const addToChatList = async (req, res) => {

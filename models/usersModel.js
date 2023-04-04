@@ -16,12 +16,12 @@ const userSchema = mongoose.Schema({
         required: true,
     },
     pp: String,
-    chats: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'chats'
-        }
-    ],
+    // chats: [
+    //     {
+    //         type: mongoose.Schema.Types.ObjectId,
+    //         ref: 'chats'
+    //     }
+    // ],
 });
 
 const UsersModel = mongoose.model('users', userSchema);
