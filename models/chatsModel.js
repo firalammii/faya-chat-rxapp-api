@@ -2,15 +2,14 @@
 import mongoose from "mongoose";
 
 const chatsSchema = mongoose.Schema({
-    admin: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'users',
-    },
+    // admin: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'users',
+    // },
     messages: [
         {
-            // type: mongoose.Schema.Types.ObjectId,
-            // ref: 'messages'
-            // type: Object
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'messages'
         }
     ],
     users: [ //participants  2 or more persons chating

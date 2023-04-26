@@ -1,12 +1,13 @@
 import ChatsModel from "../models/chatsModel.js";
 
 export const fetchChats = async (req, res) => {
+    console.log('fetching chats ...');
     try {
-        const chats = await ChatsModel.find({}).populate('users').populate('messages');
+        const chats = await ChatsModel.find({}).populate('messages').populate('users');
         res.status(200).json(chats);
     } catch (error) {
         console.log(error);
-        res.json(error);
+        res.status(400).json(error);
     }
 };
 
@@ -18,7 +19,7 @@ export const createChat = async (req, res) => {
         res.status(201).json(chat);
     } catch (error) {
         console.log(error);
-        res.json(error);
+        res.status(400).json(error);
     }
 };
 
@@ -33,7 +34,7 @@ export const addMessage = async (req, res) => {
         res.status(201).json(updated);
     } catch (error) {
         console.log(error);
-        res.json(error);
+        res.status(400).json(error);
     }
 };
 export const updateChat = async (req, res) => {
@@ -47,6 +48,17 @@ export const updateChat = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.json(error);
+        res.status(400).json(error);
+    }
+};
+
+export const findChat = async (req, res) => {
+    console.log('finding chat ...');
+    try {
+        const { chatId } = req.params;
+        const chat = await ChatsModel.findById(chatId);
+        res.status(200).json(chat);
+    } catch (error) {
+        res.status(400).json(error);
     }
 };
