@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const userSchema = mongoose.Schema({
-    displayName: {
+    username: {
         type: String,
         required: true,
         unique: true,
@@ -11,19 +11,19 @@ const userSchema = mongoose.Schema({
         required: true,
         unique: true,
     },
-    password: {
+    pwd: {
         type: String,
         required: true,
     },
     pp: String,
-    // chats: [
-    //     {
-    //         type: mongoose.Schema.Types.ObjectId,
-    //         ref: 'chats'
-    //     }
-    // ],
+    chats: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'chats'
+        }
+    ],
 });
 
 const UsersModel = mongoose.model('users', userSchema);
-
+//0901903282
 export default UsersModel;
