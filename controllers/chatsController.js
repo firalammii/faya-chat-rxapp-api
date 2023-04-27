@@ -15,7 +15,7 @@ export const createChat = async (req, res) => {
     console.log('creating chat ...');
     try {
         const chatObj = new ChatsModel(req.body);
-        const chat = await chatObj.save();
+        const chat = await new Array(chatObj.save()).populate('messages').populate('users')[0];
         res.status(201).json(chat);
     } catch (error) {
         console.log(error);
@@ -28,9 +28,8 @@ export const addMessage = async (req, res) => {
     try {
         const { id } = req.params;
         const theChat = await ChatsModel.findById(id);
-        // console.log(theChat);
         await theChat.messages.push(req.body);
-        const updated = await ChatsModel.findByIdAndUpdate(id, theChat, { new: true });
+        const updated = await theChat.save();
         res.status(201).json(updated);
     } catch (error) {
         console.log(error);
@@ -41,10 +40,8 @@ export const updateChat = async (req, res) => {
     console.log('updating chat ...');
     try {
         const { id } = req.params;
-        // console.log(id);
         const updated = await ChatsModel.findByIdAndUpdate(id, req.body, { new: true });
         res.status(201).json(updated);
-        // console.log(updated);
 
     } catch (error) {
         console.log(error);

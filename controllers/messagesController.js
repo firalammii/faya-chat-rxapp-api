@@ -20,17 +20,10 @@ export const createMessage = async (req, res) => {
         const savedMsg = await msgObj.save();
 
         const theChat = await ChatsModel.findById(chatId);
-        // console.log('theChat:', theChat)
-
         await theChat.messages.push(savedMsg);
+        await theChat.save();
 
-        const updated = await theChat.save();
-        // const updated = await ChatsModel.findByIdAndUpdate(chatId, theChat);
-
-        console.log('updated:', updated);
-
-        res.status(201).json(updated);
-
+        res.status(201).json(savedMsg);
     } catch (error) {
         console.log(error);
         res.status(400).json(error);
